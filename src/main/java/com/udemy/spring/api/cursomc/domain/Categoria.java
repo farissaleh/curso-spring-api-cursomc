@@ -3,6 +3,13 @@ package com.udemy.spring.api.cursomc.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Categoria implements Serializable{	/*
 												*	Interface que diz q o objeto pode ser convertido em um seq de bytes
 												*	para trafegar em rede/ gravados em arquivos
@@ -10,7 +17,11 @@ public class Categoria implements Serializable{	/*
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigDecimal id;
+	
+	@Column(name = "name")
 	private String name;
 	
 	public Categoria() {
@@ -38,7 +49,7 @@ public class Categoria implements Serializable{	/*
 	}
 
 	/*
-	 * No java Para que dois objetos sejam comparados pelo seu conteúdo
+	 * No java para que dois objetos sejam comparados pelo seu conteúdo
 	 * E não pelo ponteiro de memória
 	 * Comparar Pelo Valor
 	*/
