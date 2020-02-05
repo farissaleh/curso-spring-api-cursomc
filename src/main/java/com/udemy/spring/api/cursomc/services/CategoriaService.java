@@ -15,7 +15,7 @@ public class CategoriaService {
 	@Autowired //Injeção de dep / Inversão de Controler - Controlado (instanciado) pelo container
 	private CategoriaRepository repo;
 	
-	public Categoria buscar(BigDecimal id) {
+	public Categoria buscar(Integer id) {
 		Optional<Categoria> categoria = repo.findById(id);
 		return categoria.orElse(null);
 	}

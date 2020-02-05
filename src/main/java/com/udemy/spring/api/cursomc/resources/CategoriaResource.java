@@ -1,10 +1,6 @@
 package com.udemy.spring.api.cursomc.resources;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +20,7 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable BigDecimal id) { //PathVariable or PathParam? //ResponseEntity ? qlqr tipo
+	public ResponseEntity<?> find(@PathVariable Integer id) { //PathVariable or PathParam? //ResponseEntity ? qlqr tipo
 		Categoria categoria = service.buscar(id);
 		return ResponseEntity.ok(categoria);
 	}
