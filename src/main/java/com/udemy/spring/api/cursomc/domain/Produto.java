@@ -32,7 +32,7 @@ public class Produto implements Serializable{
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA", //Tabela Associativa - Feito na entidade q é dona do relacionamento?
 				joinColumns = @JoinColumn(name = "produto_id"),//Fk correspondente a classe atual (Produto)
-				inverseJoinColumns = @JoinColumn(name = "categoria_id")
+				inverseJoinColumns = @JoinColumn(name = "categoria_id")//Fk correspondente a classe associada (Categoria)
 	)
 	private List<Categoria> categorias = new ArrayList<Categoria>();
 
