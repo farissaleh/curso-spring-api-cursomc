@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Estado implements Serializable {
 
@@ -21,6 +23,7 @@ public class Estado implements Serializable {
 
 	private String nome;
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "estado")//mappedBy usado para o mapeamento 
 									//reverso da classe q n contém lógica de associação
 									// usado pra dizer qual campo que contem a lógica do mapeamento
