@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class Cidade implements Serializable {
 
@@ -21,7 +19,7 @@ public class Cidade implements Serializable {
 	private Integer id;
 	private String nome;
 
-	@JsonManagedReference
+	// - Removido por bug reportado @JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="estado_id")//Nome no banco da coluna responsável pelo relacionamento(FK)
 	private Estado estado;

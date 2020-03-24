@@ -16,7 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -32,7 +31,7 @@ public class Produto implements Serializable{
 
 	private BigDecimal preco;
 
-	@JsonBackReference // Diz q do outro lado da associação já tem os obj, então n busca mais
+	@JsonIgnore// - Removido por bug reportado @JsonBackReference // Diz q do outro lado da associação já tem os obj, então n busca mais
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA", //Tabela Associativa - Feito na entidade q é dona do relacionamento?
 				joinColumns = @JoinColumn(name = "produto_id"),//Fk correspondente a classe atual (Produto)

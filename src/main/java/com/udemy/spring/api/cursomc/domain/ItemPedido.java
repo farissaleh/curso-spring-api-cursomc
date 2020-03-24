@@ -42,7 +42,7 @@ public class ItemPedido implements Serializable{
 		return id.getPedido();
 	}
 
-	public Produto getProduto() {
+ 	public Produto getProduto() {
 		return id.getProduto();
 	}
 

@@ -14,8 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.udemy.spring.api.cursomc.domain.enums.TipoCliente;
 
 @Entity
@@ -30,7 +29,7 @@ public class Cliente implements Serializable{
 	private String cpfOuCnpj;
 	private Integer tipo;// classe terá integer como atributo mas retornará enum sempre
 
-	@JsonManagedReference
+	// - Removido por bug reportado @JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos  = new ArrayList<Endereco>();
 
@@ -40,7 +39,7 @@ public class Cliente implements Serializable{
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
-	@JsonBackReference
+	@JsonIgnore // - Removido por bug reportado @JsonBackReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 
