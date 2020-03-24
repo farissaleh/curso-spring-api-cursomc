@@ -1,10 +1,8 @@
 package com.udemy.spring.api.cursomc.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,6 +17,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Pedido implements Serializable {
 
@@ -28,12 +29,14 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date instante;
 
+	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") //Cascade Se não da erro transient
 	private Pagamento pagamento;
 
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name ="cliente_id")
 	private Cliente cliente;
@@ -55,11 +58,11 @@ public class Pedido implements Serializable {
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 	
-	public List<Produto> getProdutos() {
-		List<Produto> produtos = new ArrayList<Produto>();
-		itens.forEach(x -> produtos.add(x.getProduto()));
-		return produtos;
-	}
+//	public List<Produto> getProdutos() {
+//		List<Produto> produtos = new ArrayList<Produto>();
+//		itens.forEach(x -> produtos.add(x.getProduto()));
+//		return produtos;
+//	}
 
 	public Integer getId() {
 		return id;

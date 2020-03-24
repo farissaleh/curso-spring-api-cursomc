@@ -5,11 +5,14 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity // Exemplo Ótimo de Entidade associativa muitos pra muitos entre Produto e Pedido
 public class ItemPedido implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
+	@JsonIgnore // Não será serializado por conta da complexidade do tratamento
 	@EmbeddedId// Diz o id está embutido em um tipo(classe) auxiliar
 	private ItemPedidoPK id = new ItemPedidoPK();// Objeto auxiliar deve ser instanciado
 
@@ -34,6 +37,7 @@ public class ItemPedido implements Serializable{
 	// Para permitir um acesso direto (sem passar pelo atriubuto id) as classes
 	// correspondetes
 	// deve-se criar os getters dessas classes
+	@JsonIgnore // ignorar na serialização p evitar ref ciclica
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
