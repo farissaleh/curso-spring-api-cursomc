@@ -15,7 +15,7 @@ public class CategoriaService {
 	@Autowired //Injeção de dep / Inversão de Controler - Controlado (instanciado) pelo container
 	private CategoriaRepository repo;
 	
-	public Categoria buscar(Integer id) {
+	public Categoria find(Integer id) {
 		Optional<Categoria> categoria = repo.findById(id);
 		return categoria.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: "+id //Supplier???
 				+ ", Tipo: "+ Categoria.class));
@@ -23,6 +23,11 @@ public class CategoriaService {
 
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);//P garantir q o obj será inserido e n atualizado
+		return repo.save(obj);
+	}
+
+	public Categoria update(Categoria obj) {
+		find(obj.getId());//verificar se o obj c esse id existe
 		return repo.save(obj);
 	}
 

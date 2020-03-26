@@ -22,8 +22,8 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) { //PathVariable or PathParam? //ResponseEntity ? qlqr tipo
-		Categoria categoria = service.buscar(id);
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) { //PathVariable or PathParam? //ResponseEntity ? qlqr tipo
+		Categoria categoria = service.find(id);
 		return ResponseEntity.ok(categoria);
 	}
 	
@@ -35,6 +35,13 @@ public class CategoriaResource {
 				.path("/{id}").buildAndExpand(obj.getId()).toUri(); 
 		
 		return ResponseEntity.created(uri).build();// Boa pratica retornar a URI do o recurso criado
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
 	}
 
 }
