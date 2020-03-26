@@ -21,4 +21,9 @@ public class CategoriaService {
 				+ ", Tipo: "+ Categoria.class));
 	}
 
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);//P garantir q o obj será inserido e n atualizado
+		return repo.save(obj);
+	}
+
 }
