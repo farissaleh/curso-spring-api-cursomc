@@ -1,6 +1,8 @@
 package com.udemy.spring.api.cursomc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.udemy.spring.api.cursomc.domain.Categoria;
+import com.udemy.spring.api.cursomc.dto.CategoriaDTO;
 import com.udemy.spring.api.cursomc.services.CategoriaService;
 
 @RestController//Reste Annotation
@@ -20,6 +23,16 @@ public class CategoriaResource {
 	
 	@Autowired
 	private CategoriaService service;
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> findAll() { //PathVariable or PathParam? //ResponseEntity ? qlqr tipo
+		List<Categoria> categorias = service.findAll();
+		//Stream - Transforma a lista em conjunto de stream
+		//Map - Retorna uma Stream de acordo com a funcção
+		//Collect Recolhe os stream (Collectors.to List) para uma lista
+		List<CategoriaDTO> categoriasDTO = categorias.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok(categoriasDTO);
+	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Categoria> find(@PathVariable Integer id) { //PathVariable or PathParam? //ResponseEntity ? qlqr tipo
