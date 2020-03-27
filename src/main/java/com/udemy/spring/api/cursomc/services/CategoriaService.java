@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.udemy.spring.api.cursomc.domain.Categoria;
+import com.udemy.spring.api.cursomc.dto.CategoriaDTO;
 import com.udemy.spring.api.cursomc.exceptions.DataIntegrityException;
 import com.udemy.spring.api.cursomc.exceptions.ObjectNotFoundException;
 import com.udemy.spring.api.cursomc.repositories.CategoriaRepository;
@@ -57,6 +58,10 @@ public class CategoriaService {
 																											// serem
 																											// ordenados
 		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO dto) {
+		return new Categoria(dto.getId(), dto.getNome());
 	}
 
 }

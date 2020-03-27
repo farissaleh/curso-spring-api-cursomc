@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -33,18 +35,20 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Categoria obj){//Void para retornar sem corpo o response http -- @RequestBody indica que o obj vem do body,
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO dto){//Void para retornar sem corpo o response http -- @RequestBody indica que o obj vem do body,
 																	//faz q o json do body seja convertido p o java automaticamente
+		Categoria obj = service.fromDTO(dto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()//From Current pega a URI atual
-				.path("/{id}").buildAndExpand(obj.getId()).toUri(); 
+				.path("/{id}").buildAndExpand(dto.getId()).toUri(); 
 		
 		return ResponseEntity.created(uri).build();// Boa pratica retornar a URI do o recurso criado
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
-		obj.setId(id);
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO dto, @PathVariable Integer id){
+		dto.setId(id);
+		Categoria obj = service.fromDTO(dto);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
@@ -80,5 +84,5 @@ public class CategoriaResource {
 		Page<CategoriaDTO> categoriasDTO = categorias.map(obj -> new CategoriaDTO(obj));
 		return ResponseEntity.ok(categoriasDTO);
 	}
-
+	
 }
