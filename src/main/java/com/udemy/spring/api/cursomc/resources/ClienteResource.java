@@ -1,5 +1,6 @@
 package com.udemy.spring.api.cursomc.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.udemy.spring.api.cursomc.domain.Cliente;
 import com.udemy.spring.api.cursomc.dto.ClienteDTO;
+import com.udemy.spring.api.cursomc.dto.ClienteNewDTO;
 import com.udemy.spring.api.cursomc.services.ClienteService;
 
 @RestController
@@ -30,6 +33,15 @@ public class ClienteResource {
 	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
 		Cliente cliente = service.find(id);
 		return ResponseEntity.ok(cliente);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert (@Valid @RequestBody ClienteNewDTO dto){
+		Cliente obj = service.fromDTO(dto);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(obj.getId()).toUri(); 
+		return ResponseEntity.created(uri).build();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
