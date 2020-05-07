@@ -34,7 +34,8 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria obj) {
-		find(obj.getId());//verificar se o obj c esse id existe
+		Categoria newObj = find(obj.getId());//verificar se o obj c esse id existe e obter obj para atualização
+		updateData(newObj, obj);
 		return repo.save(obj);
 	}
 
@@ -64,4 +65,8 @@ public class CategoriaService {
 		return new Categoria(dto.getId(), dto.getNome());
 	}
 
+
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+	}
 }
