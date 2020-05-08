@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class Cliente implements Serializable{
 	private Integer tipo;// classe terá integer como atributo mas retornará enum sempre
 
 	// - Removido por bug reportado @JsonManagedReference
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)//Para toda operação em cliente ser refletida em endereçoss
 	private List<Endereco> enderecos  = new ArrayList<Endereco>();
 
 	//Mapenado conjunto de stirng
