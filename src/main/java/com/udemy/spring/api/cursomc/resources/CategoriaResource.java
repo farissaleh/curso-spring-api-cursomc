@@ -82,7 +82,7 @@ public class CategoriaResource {
 		//Page já está dentro do stream do java n precisar passar p stream
 		Page<Categoria> categorias = service.findPage(page, linesPerPage, orderBy, direction);
 		Page<CategoriaDTO> categoriasDTO = categorias.map(obj -> new CategoriaDTO(obj));
-		return ResponseEntity.ok(categoriasDTO);
+		return ResponseEntity.ok().body(categoriasDTO);
 	}
 	
 }
