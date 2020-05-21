@@ -3,7 +3,9 @@ package com.udemy.spring.api.cursomc.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -53,6 +55,10 @@ public class Pedido implements Serializable {
 		this.instante = instante;
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
+	}
+	
+	public double getValorTotal() {
+		return itens.stream().mapToDouble(x -> x.getSubTotal()).sum();
 	}
 	
 //	public List<Produto> getProdutos() {
